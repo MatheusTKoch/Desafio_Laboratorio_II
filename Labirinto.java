@@ -43,6 +43,46 @@ class Labirinto {
         return novoLabirinto;
     }
 
+    public boolean percorreLabirinto() {
+        boolean[][] visitados = new boolean[labirinto.length][labirinto[0].length];
+        int[] inicio = encontraPosicaoInicial();
+
+        if (inicio == null) return false;
+        
+        return percorreLabirintoRecursivo(inicio[0], inicio[1], visitados);
+    }
+
+    private boolean percorreLabirintoRecursivo(int linha, int coluna, boolean[][] visitados) {
+        if (linha < 0 || linha >= labirinto.length || 
+            coluna < 0 || coluna >= labirinto[0].length || 
+            visitados[linha][coluna] || 
+            labirinto[linha][coluna] == 'X') {
+            return false;
+        }
+        
+        if (labirinto[linha][coluna] == 'D') {
+            return true;
+        }
+        
+        visitados[linha][coluna] = true;
+        
+        return percorreLabirintoRecursivo(linha - 1, coluna, visitados) ||  
+               percorreLabirintoRecursivo(linha, coluna + 1, visitados) ||  
+               percorreLabirintoRecursivo(linha + 1, coluna, visitados) ||  
+               percorreLabirintoRecursivo(linha, coluna - 1, visitados);    
+    }
+
+    private int[] encontraPosicaoInicial() {
+        for (int i = 0; i < labirinto.length; i++) {
+            for (int j = 0; j < labirinto[i].length; j++) {
+                if (labirinto[i][j] == ' ') {
+                    return new int[]{i, j};
+                }
+            }
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         char[][] lab = criaLabirinto("labirinto.txt");
         Labirinto novoLabirinto = new Labirinto(lab);
@@ -50,5 +90,9 @@ class Labirinto {
         for (char[] linha : novoLabirinto.labirinto) {
             System.out.println(new String(linha));
         }
+
+        boolean temSaida = novoLabirinto.percorreLabirinto();
+        System.out.println("\nExiste caminho até a saída? " + 
+            (temSaida ? "Sim" : "Não"));
     }
 }
