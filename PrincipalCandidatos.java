@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Scanner;
 
 public class PrincipalCandidatos {
     private static final String[] NOMES = {
@@ -52,9 +53,35 @@ public class PrincipalCandidatos {
             candidatos[j + 1] = chave;
         }
     }
+
+    public static int pesquisaBinariaCandidatos(Candidato[] candidatos, String nome) {
+        int inicio = 0;
+        int fim = candidatos.length - 1;
+        
+        while (inicio <= fim) {
+            int meio = (inicio + fim) / 2;
+            int comparacao = candidatos[meio].getNome().compareTo(nome);
+            
+            if (comparacao == 0) {
+                while (meio > 0 && candidatos[meio - 1].getNome().equals(nome)) {
+                    meio--;
+                }
+                return meio;
+            }
+            
+            if (comparacao > 0) {
+                fim = meio - 1;
+            } else {
+                inicio = meio + 1;
+            }
+        }
+        
+        return -1;
+    }
     
     public static void main(String[] args) {
         Random random = new Random();
+        Scanner scanner = new Scanner(System.in);
         
         int tamanhoArray = random.nextInt(100) + 1;
         Candidato[] candidatos = new Candidato[tamanhoArray];
@@ -81,5 +108,19 @@ public class PrincipalCandidatos {
         for (Candidato candidato : candidatos) {
             System.out.println(candidato);
         }
+
+        System.out.println("\nDigite o nome do candidato que deseja procurar:");
+        String nomeProcurado = scanner.nextLine();
+        
+        int posicao = pesquisaBinariaCandidatos(candidatos, nomeProcurado);
+        
+        if (posicao != -1) {
+            System.out.println("\nCandidato encontrado na posição " + (posicao + 1));
+            System.out.println(candidatos[posicao]);
+        } else {
+            System.out.println("\nNenhum candidato encontrado com o nome: " + nomeProcurado);
+        }
+        
+        scanner.close();
     }
 }
