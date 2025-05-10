@@ -86,6 +86,21 @@ public class StaticList<E> implements List<E> {
 		// se chegar até aqui, é porque não encontrou
 		return -1;
 	}
+
+	public int contaElementos(E el) throws UnderflowException {
+		if (isEmpty()) {
+			throw new UnderflowException();
+		}
+		return contaElementosRecursivo(el, numElements - 1);
+	}
+
+	private int contaElementosRecursivo(E el, int pos) throws UnderflowException {
+		if (pos < 0) {
+			return 0;
+		}
+		int count = (elements[pos].equals(el)) ? 1 : 0;
+		return count + contaElementosRecursivo(el, pos - 1);
+	}
 	
 	/**
 	 * Retorna uma representação String da lista.
