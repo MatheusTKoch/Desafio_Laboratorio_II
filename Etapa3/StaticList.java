@@ -1,3 +1,4 @@
+package Etapa3;
 /**
  * Implementação de uma lista linear com armazenamento estático,
  * baseado em array.
@@ -10,6 +11,7 @@ public class StaticList<E> implements List<E> {
 	 * Constrói uma lista com um tamanho máximo.
 	 * @param maxSize O tamanho máximo da lista
 	 */
+	@SuppressWarnings("unchecked")
 	public StaticList(int maxSize) {
 		elements = (E[])new Object[maxSize];
 		numElements = 0;

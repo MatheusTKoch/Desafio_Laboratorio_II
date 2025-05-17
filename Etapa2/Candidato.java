@@ -1,3 +1,4 @@
+package Etapa2;
 public class Candidato {
     private String nome;
     private String partido;
