@@ -1,5 +1,6 @@
 package Etapa4;
 
+@SuppressWarnings("unchecked")
 public class LinkedStack<T> implements Stack<T> {
     private Node<T> top;
     private int size;

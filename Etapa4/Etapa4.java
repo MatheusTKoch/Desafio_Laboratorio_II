@@ -1,6 +1,5 @@
 package Etapa4;
 
-@SuppressWarnings("unchecked")
 public class Etapa4 {
     public static void main(String[] args) {
         System.out.println("=== TESTE LINKEDSTACK ===");

@@ -1,5 +1,6 @@
 package Etapa4;
 
+@SuppressWarnings("unchecked")
 public class LinkedQueue<T> implements Queue<T> {
     private Node<T> front;  
     private Node<T> back;   
